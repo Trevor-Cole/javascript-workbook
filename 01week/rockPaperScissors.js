@@ -26,15 +26,15 @@ const rl = readline.createInterface({
 
 const rockPaperScissors = (hand1, hand2) => {
   if(hand1 === hand2) {
-    return "It's A Tie!"
+    return "It's A Tie!";
   } else {
     if(hand1 === "rock" && hand2 === "scissors" || hand1 === "paper" && hand2 === "rock" || hand1 === "scissors" && hand2 === "paper") {
-      return "Player 1 Wins!"
+      return "Player 1 Wins!";
     } else {
-      return "Player 2 Wins!"
+      return "Player 2 Wins!";
     }
   }  
-}    
+};
 
 
 
