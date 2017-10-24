@@ -28,6 +28,8 @@ const sortedCars = totalCars.sort();
 
 //8. slice
 const removedCars = carsInReverse.slice(2, 4);
+
+//9. splice
 carsInReverse.splice(2, 2, 'Ford', 'Honda');
 
 //10. push
