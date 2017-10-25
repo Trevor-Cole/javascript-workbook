@@ -8,11 +8,35 @@ const rl = readline.createInterface({
 });
 
 
-function rockPaperScissors(hand1, hand2) {
+// Two users. User1 picks first, then User2
 
-  // Write code here
+  
 
-}
+// Three types of input. Rock, Pape, Siz
+
+// Compare hands
+
+// User1 and user2 pick same hand = tie, else figure out who wins.
+
+//user1 picks rock, user2 picks siz, user1 wins, else user2 wins.
+
+//user1 picks pape, user 2picks rock, user1 wins, else user2 wins.
+
+//user1 picks siz, user2 picks pape, user1 wins, else user2 wins.
+
+const rockPaperScissors = (hand1, hand2) => {
+  if(hand1 === hand2) {
+    return "It's A Tie!";
+  } else {
+    if(hand1 === "rock" && hand2 === "scissors" || hand1 === "paper" && hand2 === "rock" || hand1 === "scissors" && hand2 === "paper") {
+      return "Player 1 Wins!";
+    } else {
+      return "Player 2 Wins!";
+    }
+  }  
+};
+
+
 
 function getPrompt() {
   rl.question('hand1: ', (answer1) => {
