@@ -19,6 +19,19 @@ let orderedStacks = {
   c: []
 };
 
+const winningStackB = {
+  a: [],
+  b: [4, 3, 2, 1],
+  c: []
+}
+
+const winningStackC = {
+  a: [],
+  b: [],
+  c: [4, 3, 2, 1]
+}
+
+
 
 function printStacks() {
   console.log("a: " + stacks.a);
@@ -55,6 +68,15 @@ function isLegal() {
 // Use a if greater (>) than for pieces.
 // If origin piece is greater than destination piece, invalid move, otherwise, go ahead and move.
 
+
+function checkForWin() {
+  if((stacks  == winningStackB) || (stacks == winningStackC)) {
+    return true
+  }
+  else {
+    return false
+  }
+}
 
 
 // Is array 'b' or 'c' full? 
@@ -106,7 +128,10 @@ function towersOfHanoi(startStack, endStack) {
 
 function getPrompt() {
   orderize();
-  if(isLegal() === true) {  
+  if(checkForWin() === true) {
+    console.log('WINNER') 
+  } else
+    if(isLegal() === true && checkForWin() === false) {  
     printStacks();
     isLegal(); 
     rl.question('start stack: ', (startStack) => {
@@ -116,9 +141,8 @@ function getPrompt() {
       });
     });
   }
-  else {
+  else{
     console.log('Invalid Move, try again')
-
   }
 }
 
