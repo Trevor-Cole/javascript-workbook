@@ -13,9 +13,12 @@ let stacks = {
   c: []
 };
 
-let orderedStackA = stacks.a;
-let orderedStackB = stacks.b;
-let orderedStackC = stacks.c;
+let orderedStacks = {
+  a: [4, 3, 2, 1],
+  b: [],
+  c: []
+};
+
 
 function printStacks() {
   console.log("a: " + stacks.a);
@@ -31,16 +34,21 @@ function movePiece() {
 // Use pop to remove piece from origin stack and use push(?) to place it on destination stack.
 // Is it easier to put this in towersOfHanoi?
 
+const orderize = () => {
+  orderedStacks.a.sort(function(uno, dos){return dos-uno});
+  orderedStacks.b.sort(function(uno, dos){return dos-uno});
+  orderedStacks.c.sort(function(uno, dos){return dos-uno});
+  
+}
+
 
 function isLegal() {
-  orderedStackA.sort(function(uno, dos){return dos-uno}).slice(0)
-  orderedStackB.sort(function(uno, dos){return dos-uno}).slice(0)
-  orderedStackC.sort(function(uno, dos){return dos-uno}).slice(0);
-  if(orderedStackA != stacks.a) {
-    console.log('fail');
+  orderize;
+  if(stacks.a.toString() === orderedStacks.a.toString()) {
+    return true;
   } 
   else {
-    console.log('ok')
+    return false;
   }
 }
 
@@ -65,27 +73,27 @@ function isLegal() {
 function towersOfHanoi(startStack, endStack) {
   if(endStack === 'b' && startStack === 'a') {
     stacks.b.push(stacks.a.pop());
-    orderedStackB.push(orderedStackA.pop());
+    orderedStacks.b.push(orderedStacks.a.pop());
   }
   if(endStack === 'b' && startStack === 'c') {
     stacks.b.push(stacks.c.pop());
-    orderedStackB.push(orderedStackC.pop());
+    orderedStacks.b.push(orderedStacks.c.pop());
   }
   if(endStack === 'c' && startStack === 'a') {
     stacks.c.push(stacks.a.pop());
-    orderedStackC.push(orderedStackA.pop());
+    orderedStacks.c.push(orderedStacks.a.pop());
   }
   if(endStack === 'c' && startStack === 'b') {
     stacks.c.push(stacks.b.pop());
-    orderedStackC.push(orderedStackB.pop());
+    orderedStacks.c.push(orderedStacks.b.pop());
   }
   if(endStack === 'a' && startStack === 'b') {
     stacks.a.push(stacks.b.pop());
-    orderedStackA.push(orderedStackB.pop());
+    orderedStacks.a.push(orderedStacks.b.pop());
   }
   if(endStack === 'a' && startStack === 'c') {
     stacks.a.push(stacks.c.pop());
-    orderedStackA.push(orderedStackC.pop());
+    orderedStacks.a.push(orderedStacks.c.pop());
   }
 
   // isLegal.apply(this, arguments); <---Possible use
@@ -97,19 +105,22 @@ function towersOfHanoi(startStack, endStack) {
 
 
 function getPrompt() {
-//
-  console.log(orderedStackA)
-  console.log(orderedStackB)
-  console.log(orderedStackC)
-//
-  printStacks();
-  rl.question('start stack: ', (startStack) => {
-    rl.question('end stack: ', (endStack) => {
-      towersOfHanoi(startStack, endStack);
-      getPrompt();
+  orderize();
+  if(isLegal() === true) {  
+    printStacks();
+    isLegal(); 
+    rl.question('start stack: ', (startStack) => {
+      rl.question('end stack: ', (endStack) => {
+        towersOfHanoi(startStack, endStack);
+        getPrompt();           
+      });
     });
-  });
+  }
+  else {
+    console.log('Invalid Move, try again')
+
+  }
 }
 
-isLegal();
+
 getPrompt();
