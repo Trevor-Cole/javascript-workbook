@@ -22,7 +22,7 @@ let orderedStacks = {
 
 function printStacks() {
   console.log("a: " + stacks.a);
-  console.log("b: " + stacks.b);
+  console.log("b: " + stacks.b); 
   console.log("c: " + stacks.c);
 }
 
