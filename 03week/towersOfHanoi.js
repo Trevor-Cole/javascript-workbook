@@ -19,19 +19,6 @@ let orderedStacks = {
   c: []
 };
 
-const winningStackB = {
-  a: [],
-  b: [4, 3, 2, 1],
-  c: []
-}
-
-const winningStackC = {
-  a: [],
-  b: [],
-  c: [4, 3, 2, 1]
-}
-
-
 
 function printStacks() {
   console.log("a: " + stacks.a);
@@ -41,7 +28,7 @@ function printStacks() {
 
 
 function movePiece() {
-  
+  // didin't end up using this.
   
 } 
 // Use pop to remove piece from origin stack and use push(?) to place it on destination stack.
@@ -70,7 +57,7 @@ function isLegal() {
 
 
 function checkForWin() {
-  if((stacks  == winningStackB) || (stacks == winningStackC)) {
+  if((stacks.b === [ 4, 3, 2, 1 ]) || (stacks.c === [ 4, 3, 2, 1 ])) {
     return true
   }
   else {
@@ -129,22 +116,26 @@ function towersOfHanoi(startStack, endStack) {
 function getPrompt() {
   orderize();
   if(checkForWin() === true) {
+    printStacks();
     console.log('WINNER') 
   } else
-    if(isLegal() === true && checkForWin() === false) {  
-    printStacks();
-    isLegal(); 
-    rl.question('start stack: ', (startStack) => {
+    if(isLegal() === false){
+    console.log('Invalid Move, try again')
+  } 
+  else
+    if((isLegal() === true) && (checkForWin() === false)) {  
+      printStacks();
+      isLegal(); 
+      rl.question('start stack: ', (startStack) => {
       rl.question('end stack: ', (endStack) => {
         towersOfHanoi(startStack, endStack);
         getPrompt();           
       });
     });
   }
-  else{
-    console.log('Invalid Move, try again')
-  }
 }
 
-
 getPrompt();
+
+
+// I ended up using different methods from my whiteboarding. Trial and error, lots of it.
