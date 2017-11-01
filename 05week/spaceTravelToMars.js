@@ -9,7 +9,25 @@ let jobTypes = {
   programmer: 'Any Ship!'
 };
 
-// Your code here
+class crewMember {
+   constructor(name, job, specialSkill, ship){
+     this.name = name;
+     this.job = job;
+     this.specialSkill = specialSkill;
+     this.ship = ship;
+   }
+}
+
+class ship {
+  constructor(name, type, ability, emptyCrew){
+    this.name = name;
+    this.type = type;
+    this.ability = ability;
+    this.emptyCrew = emptyCrew;
+  }
+}
+
+//This is as much as I can understand.
 
 //tests
 if (typeof describe === 'function'){
