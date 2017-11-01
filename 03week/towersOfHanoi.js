@@ -13,42 +13,129 @@ let stacks = {
   c: []
 };
 
+let orderedStacks = {
+  a: [4, 3, 2, 1],
+  b: [],
+  c: []
+};
+
+
 function printStacks() {
   console.log("a: " + stacks.a);
-  console.log("b: " + stacks.b);
+  console.log("b: " + stacks.b); 
   console.log("c: " + stacks.c);
 }
 
-function movePiece() {
-  // Your code here
 
+function movePiece() {
+  // didin't end up using this.
+  
+} 
+// Use pop to remove piece from origin stack and use push(?) to place it on destination stack.
+// Is it easier to put this in towersOfHanoi?
+
+const orderize = () => {
+  orderedStacks.a.sort(function(uno, dos){return dos-uno});
+  orderedStacks.b.sort(function(uno, dos){return dos-uno});
+  orderedStacks.c.sort(function(uno, dos){return dos-uno});
+  
 }
+
 
 function isLegal() {
-  // Your code here
-
+  orderize;
+  if(stacks.a.toString() === orderedStacks.a.toString()) {
+    return true;
+  } 
+  else {
+    return false;
+  }
 }
+
+// Use a if greater (>) than for pieces.
+// If origin piece is greater than destination piece, invalid move, otherwise, go ahead and move.
+
 
 function checkForWin() {
-  // Your code here
-
+  if((stacks.b === [ 4, 3, 2, 1 ]) || (stacks.c === [ 4, 3, 2, 1 ])) {
+    return true
+  }
+  else {
+    return false
+  }
 }
+
+
+// Is array 'b' or 'c' full? 
+// a:
+// b:4,3,2,1
+// c:
+
+// (or)
+
+// a:
+// b:
+// c:4,3,2,1
+// Use --- if array b or c is equal to [4,3,2,1] then return WIN
+
 
 function towersOfHanoi(startStack, endStack) {
-  // Your code here
+  if(endStack === 'b' && startStack === 'a') {
+    stacks.b.push(stacks.a.pop());
+    orderedStacks.b.push(orderedStacks.a.pop());
+  }
+  if(endStack === 'b' && startStack === 'c') {
+    stacks.b.push(stacks.c.pop());
+    orderedStacks.b.push(orderedStacks.c.pop());
+  }
+  if(endStack === 'c' && startStack === 'a') {
+    stacks.c.push(stacks.a.pop());
+    orderedStacks.c.push(orderedStacks.a.pop());
+  }
+  if(endStack === 'c' && startStack === 'b') {
+    stacks.c.push(stacks.b.pop());
+    orderedStacks.c.push(orderedStacks.b.pop());
+  }
+  if(endStack === 'a' && startStack === 'b') {
+    stacks.a.push(stacks.b.pop());
+    orderedStacks.a.push(orderedStacks.b.pop());
+  }
+  if(endStack === 'a' && startStack === 'c') {
+    stacks.a.push(stacks.c.pop());
+    orderedStacks.a.push(orderedStacks.c.pop());
+  }
 
+  // isLegal.apply(this, arguments); <---Possible use
 }
 
+// if startStack is equal to a, pop array a, b pops b, c pops c.
+
+
+
+
 function getPrompt() {
-  printStacks();
-  rl.question('start stack: ', (startStack) => {
-    rl.question('end stack: ', (endStack) => {
-      towersOfHanoi(startStack, endStack);
-      getPrompt();
+  orderize();
+  if(checkForWin() === true) {
+    printStacks();
+    console.log('WINNER') 
+  } else
+    if(isLegal() === false){
+    console.log('Invalid Move, try again')
+  } 
+  else
+    if((isLegal() === true) && (checkForWin() === false)) {  
+      printStacks();
+      isLegal(); 
+      rl.question('start stack: ', (startStack) => {
+      rl.question('end stack: ', (endStack) => {
+        towersOfHanoi(startStack, endStack);
+        getPrompt();           
+      });
     });
-  });
+  }
 }
 
 getPrompt();
 
 
+// I ended up using different methods from my whiteboarding. Trial and error, lots of it.
