@@ -8,14 +8,22 @@ const rl = readline.createInterface({
 });
 
 
-function Checker() {
-  // Your code here
+function Checker(color) {
+  if (color === 'white') {
+    this.symbol = String.fromCharCode(0x125CF);
+    this.color = 'white';
+  }
+  else {
+    this.symbol = String.fromCharCode(0x125CB);
+    this.color = 'black';
+  }
 }
+
 
 function Board() {
   this.grid = [];
   // creates an 8x8 array, filled with null values
-  this.createGrid = function() {
+  this.createGrid = () => {
     // loop to create the 8 rows
     for (let row = 0; row < 8; row++) {
       this.grid[row] = [];
@@ -27,7 +35,7 @@ function Board() {
   };
 
   // prints out the board
-  this.viewGrid = function() {
+  this.viewGrid = () => {
     // add our column numbers
     let string = "  0 1 2 3 4 5 6 7\n";
     for (let row = 0; row < 8; row++) {
@@ -51,18 +59,65 @@ function Board() {
     }
     console.log(string);
   };
+  this.populateGrid = () => {
+    // loops through the 8 rows
+    for (let row = 0; row < 8; row++) {
+      // ignores rows which should be empty
+      if (row === 3 || row === 4) continue;
+      // loops through the 8 columns
+      for (let col = 0; col < 8; col++) {
+        // sets current color based on the current row
+        let color = (row < 3 ? 'white' : 'black');
+        // alternates cells to populate with either white or black checkers
+        // then pushes checker to array named checkers
+        if (row % 2 === 0 && col % 2 === 1) {
+          this.grid[row][col] = new Checker(color);
+        } else if (row % 2 === 1 && col % 2 === 0) {
+          this.grid[row][col] = new Checker(color);
+        }
+      }
+    }
+  };
 
   // Your code here
 }
+
 function Game() {
 
   this.board = new Board();
 
   this.start = function() {
     this.board.createGrid();
-    // Your code here
+    this.board.populateGrid();
   };
+  this.moveChecker = (whichPiece, toWhere) => {
+    const start = whichPiece.split('');
+    const end = toWhere.split('');
+    const startRow = start[0];
+    const startColumn = start[1];
+    const endRow = end[0];
+    const endColumn = end[1];
+
+    if(game.board.grid[endRow][endColumn] !== Checker) {
+      game.board.grid[endRow][endColumn] = game.board.grid[startRow][startColumn];
+      game.board.grid[startRow][startColumn] = null;
+    } 
+    else {
+      // game.board.grid[endRow][endColumn] = game.board.grid[startRow][startColumn];
+      // game.board.grid[startRow][startColumn] = null;
+    }
+
+    // game.board.grid[endRow][endColumn] = game.board.grid[startRow][startColumn];
+    // game.board.grid[startRow][startColumn] = null;
+    // console.log(start, end);
+    // console.log(startRow, startColumn);
+    // console.log(game.board.grid[startRow][startColumn]);
+    // console.log(game.board.grid[0][1])
+    // console.log(game.board.grid[7][0])
+  }
 }
+
+ // '○' '●'
 
 function getPrompt() {
   game.board.viewGrid();
